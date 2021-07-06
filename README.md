@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+[toc]
+# react与vue的区别
+1. vue是MVVM框架，即model -> view和view -> model是自动的，当然这里只说表单组件，它有个v-model指令能实现双向绑定，但其实本质上还是通过监听原生事件来做的view -> model
+2. react是MVC框架，虽然model->view是自动的，但是view->model是需要程序员去编写的
+3. 如果要做的页面特别多表单，那用vue会比较简单
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# cra脚手架的一些依赖
+ 1. react： 框架的核心，提供了状态、属性、组件、生命周期等
+ 2. react-dom：把jsx语法转换成真正的dom，最后挂在到html中
+ 3. react-scripts：执行命令，通知webpack打包编译。包含了当前项目中webpack配置的东西 (cra把webpack的配置隐藏到了node_modules中)
+    - eject 把隐藏在node_modules中的webpack配置暴露出来，用来自定义设置
+        - babel-preset-react-app 用来解析JSX语法
 
-## Available Scripts
+# JSX语法
+    javascript & xml
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 虚拟dom到真实dom
+    两个主要的方法React.createElement()和ReactDOM.render()
+步骤：
+1. 用babel-preset-react-app词法解析器将JSX转换成createElement(type, props, ...children)这种的格式，执行，返回react元素（就是虚拟dom）
+    ==虚拟dom==对象格式长这样: 
+    ```javascript
+    {
+        $$typeof：Symbol(react.element),
+        type: 'div',  // 标签名或组件名
+        props:{
+            className: 'xxx',  // 属性
+            children: [] // 子元素 只有一个子元素的时候不是数组
+        },
+        ref: null,
+        key: null，
+        ...
+    }
+    ```
+2. 执行ReactDOM.render(element, container, callback)，虚拟dom到真实dom的转变
