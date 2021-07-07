@@ -1,17 +1,17 @@
 function createElement(type, props, ...children) {
   let vDOM = {
     type,
-    props: {},  //key和ref单独放
+    props: {}, //key和ref单独放
     key: null,
-    ref: null
+    ref: null,
   };
 
   if (props) {
-    if (props.hasOwnProperty('key')) {
+    if (props.hasOwnProperty("key")) {
       vDOM.key = props.key;
       delete props.key;
     }
-    if (props.hasOwnProperty('ref')) {
+    if (props.hasOwnProperty("ref")) {
       vDOM.ref = props.ref;
       delete props.ref;
     }
@@ -30,10 +30,11 @@ function createElement(type, props, ...children) {
 }
 
 let example = createElement(
-  'div',
-  { className: 'nav', id: 21 },
-  'are you kidding?', createElement('div', {}, 'yes!')
-)
+  "div",
+  { className: "nav", id: 21 },
+  "are you kidding?",
+  createElement("div", {}, "yes!")
+);
 
 console.dir(example);
 /**
@@ -57,15 +58,10 @@ console.dir(example);
  */
 
 function render(element, container, callback) {
-  // 字符串
-  if (typeof element === 'string') {
-    container.appendChild(document.createTextNode(element));
-  }
-
   // 节点
   //key和ref是react的内容，这里就不处理了
-  let { type, props, key, ref } = element,
-    { className, style, children, ...restProps } = props;
+  let { type, props, key, ref } = element;
+  let { className, style, children, ...restProps } = props || {};
 
   const e = document.createElement(type);
 
@@ -84,13 +80,20 @@ function render(element, container, callback) {
   if (children) {
     // 统一处理
     children = Array.isArray(children) ? children : [children];
-    children.forEach(item => render(item, e))
+    children.forEach((item) => {
+      if (typeof item === "string") {
+        e.appendChild(document.createTextNode(item));
+        return;
+      } else {
+        render(item, e);
+      }
+    });
   }
 
   callback && callback();
   container.appendChild(e);
 }
 
-render(example, document.getElementById('selfJSX'));
+render(example, document.getElementById("selfJSX"));
 
-export default 2;
+export default 3;
