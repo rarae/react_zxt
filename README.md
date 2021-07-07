@@ -21,7 +21,7 @@
     ==虚拟dom==对象格式长这样: 
     ```javascript
     {
-        $$typeof：Symbol(react.element),
+        $$typeof: Symbol(react.element),
         type: 'div',  // 标签名或组件名
         props:{
             className: 'xxx',  // 属性
@@ -33,3 +33,5 @@
     }
     ```
 2. 执行ReactDOM.render(element, container, callback)，虚拟dom到真实dom的转变
+
+# selfJSX.js
