@@ -163,3 +163,52 @@ class App extends React.Component {
   }
 }
 ```
+    this.setState(partialState, callback) // 修改状态，通知视图重新渲染
+    callback是渲染完成后才执行的
+
+    this.forceUpdate(callback) // 强制渲染
+
+    基于状态（或属性）的更新驱动视图渲染，叫做受控组件（受实例数据管控的组件）
+    非受控组件：不受数据管控（直接操控dom）
+
+```javascript
+// 非受控组件用ref来操作
+class App extends React.Component {
+  constructor() {
+    super();
+  }
+  render() {
+    return (
+      <div>
+        <p ref="p1"></p> // 这样写实际上就是往组件实例的refs属性添加一个原生的指向p元素的数据
+        <p ref={x=>{  // 现在流行这种写法，直接挂在this实例上
+          this.p2 = x;
+        }}></p>
+      </div>
+    );
+  }
+  componentDidMount() {
+    console.log(this.refs); // {fff: p, ff2f33: p}
+  }
+}
+```
+### 生命周期
+老版本的生命周期
+![react](https://img-blog.csdnimg.cn/20210708215330428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTE4NzQ0,size_16,color_FFFFFF,t_70)
+
+新版本的生命周期
+![react](https://img-blog.csdnimg.cn/img_convert/15d9cb75ff8f0caab57622de4f378460.png)
+
+
+[详情请点击](https://www.jianshu.com/p/b331d0e4b398)
+
+## react合成事件
+    react是基于事件委托把所有的事件进行代理（跨平台、跨终端）
+    事件对象也因此是自己额外单独处理了
+
+setState(partialProps, cbFn)在合成事件或者生命周期函数中都是异步操作 
+
+如果把setState放在异步任务中，那么就是同步的了
+比如放在1. 定时器 2.原生js事件 3.ajax请求
+
+## 复合组件信息传递
