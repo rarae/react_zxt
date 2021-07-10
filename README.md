@@ -258,4 +258,4 @@ function useState(initState) {
 
 ## redux
 
-1
+12
