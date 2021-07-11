@@ -5,7 +5,7 @@
 import * as TYPES from "../action-types";
 
 /**
- * 初始状态，在这里声明的好处就是，可以让每一个模块独立
+ * 初始状态，在这里用reducer函数默认参数声明的好处就是，可以让每一个模块独立
  */
 const initState = {
   supNum: 10,
