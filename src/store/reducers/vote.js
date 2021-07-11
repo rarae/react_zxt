@@ -1,8 +1,12 @@
 /**
  * 每个reducer都管理自己的状态
+ * 修改公共状态的操作都在这里（只有通过它才能够修改公共状态）
  */
 import * as TYPES from "../action-types";
 
+/**
+ * 初始状态，在这里声明的好处就是，可以让每一个模块独立
+ */
 const initState = {
   supNum: 10,
   oppNum: 5,
@@ -22,5 +26,5 @@ export default function (state = initState, action) {
       state.oppNum++;
       break;
   }
-  return state;
+  return state;  // 返回最新的状态来修改容器中原来的状态信息
 }

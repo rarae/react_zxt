@@ -1,0 +1,18 @@
+.Vote {
+  box-sizing: border-box;
+  width: 400px;
+  border: 1px solid blanchedalmond;
+  margin: 20px auto;
+  padding: 10px;
+
+  .VoteShow {
+    font-size: 16px;
+    line-height: 30px;
+  }
+
+  .VoteClick {
+    button {
+      margin-right: 10px;
+    }
+  }
+}

@@ -10,6 +10,7 @@
  3. react-scripts：执行命令，通知webpack打包编译。包含了当前项目中webpack配置的东西 (cra把webpack的配置隐藏到了node_modules中)
     - eject 把隐藏在node_modules中的webpack配置暴露出来，用来自定义设置
         - babel-preset-react-app 用来解析JSX语法
+        - 要想使用scss 先要装loader npm install node-sass sass-loader --save 即可使用
 
 # 3. JSX语法
     javascript & xml
@@ -257,4 +258,27 @@ function useState(initState) {
 ### useReducer
 
 ## redux
+redux是公共状态管理的鼻祖
+![ff](https://img-blog.csdnimg.cn/20210711101943410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzNTE4NzQ0,size_16,color_FFFFFF,t_70)
+redux工程化写起来比较麻烦，文件结构目录如下
+- store
+  - actions
+    - index.js       合并actions
+    - vote.js        构建出action 函数返回 {type:xxx, data:xxx}
+    - ...
+  - reducers
+    - index.js       合并reducers
+    - vote.js        写reducer
+    - ...
+  - index.js           创建store
+  - action-types.js    存储行为派发类型
 
+最好就是去用react-redux，store的文件目录还是不变的，变的是怎么使用这个store，react-redux帮我们做了使用的简化工作
+
+## react-redux
+/**
+ * react-redux的好处，还是要用到redux的，只不过react-redux就是对如何使用redux做了一个封装，使它用在react组件的时候写起来清晰简单
+ * 1. Provider：可以通过这个组件来传递store，其实他就是利用上下文context实现的
+ * 2. 使用connect方法、高阶组件、自动将store容器中的状态、dispatch方法映射到组件的props中，
+ *    这时候组件就能够调用props.fn来修改store状态，并且能够自动刷新页面
+ */
